@@ -45,6 +45,37 @@ export default class JiraIssues {
       });
   }
 
+  createBugIssueObj(options={}) {
+    const _this = this;
+
+    this.getMetaData().then(function( meta ){
+
+    // Create the issue object
+    var newIssue = {
+      fields: {
+        project: {
+          key: options.project
+        },
+        summary: options.summary,
+        description: options.description,
+        components: [{name: options.component}],
+        timetracking: {
+          originalEstimate: options.estimated,
+          remainingEstimate: options.estimated
+        },
+        issuetype: {
+          id: 10003
+        }
+      }
+    };
+    console.log(JSON.stringify(newIssue))
+    _this.createIssue( newIssue );
+    
+  }).catch((err) => {
+    console.log(err);
+    process.exit();
+  });
+  }
   /**
   * Crate a new issue object
   * Docs: https://docs.atlassian.com/jira/REST/cloud/#api/2/issue-createIssue

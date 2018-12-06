@@ -127,6 +127,24 @@ jira.init().then(function(){
       jira.cmdVersion(c, o);
     });
 
+  /**
+   * Fast issue creation
+   */
+  cl
+    .command('bug [command]')
+    .description('Create a bug')
+    .alias('b')
+    .option("-p, --project <string>", "Set the project")
+    .option("-s, --summary <string>", "Set the summary")
+    .option("-d, --description <string>", "Set the description")
+    .option("-c, --component <string>", "Set the component name")
+    .option("-e, --estimated <string>", "Set the estimated time")
+
+    // Get project versions
+    .action((c, o) => {
+      jira.cmdBug(c, o);
+    });
+
 
   /**
    * Show help if executes with no arguments
